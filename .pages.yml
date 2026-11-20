@@ -1,0 +1,46 @@
+# Phone-friendly editor (https://pagescms.org). Connect it to the GitHub repo
+# and it gives you a simple form: title, date, cover photo, story text, photos.
+media:
+  input: media
+  output: /media
+
+content:
+  - name: stories
+    label: Stories
+    type: collection
+    path: content/stories
+    filename: "{primary}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      sort: [date]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: date
+        required: true
+      - name: place
+        label: Place (e.g. Olomouc, Czech Republic)
+        type: string
+      - name: cover
+        label: Cover photo (thumbnail)
+        type: image
+      - name: summary
+        label: Short description for Google and AI (optional, made automatically if empty)
+        type: string
+      - name: details
+        label: Details at the end (e.g. camera, film)
+        type: string
+      - name: draft
+        label: Draft (hidden from site)
+        type: boolean
+      - name: body
+        label: Story
+        type: rich-text
