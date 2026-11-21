@@ -39,6 +39,8 @@ starts or ends on one of them.
 | line     | one short sentence (under 70 characters)                    | 2–6, large italic     | 0–2              |
 | head     | a heading in the story                                      | 0–6, small mono label | 0–2              |
 
+A story can force frames to full screen with `full: [18, 24]` (the frame numbers shown under the photos).
+
 Runs of landscape photos alternate **wide, pair, wide, pair** so long series
 read like a contact sheet, not a scroll.
 

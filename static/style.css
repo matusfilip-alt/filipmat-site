@@ -136,7 +136,7 @@ html.fsv-open{overflow:hidden}
 .fsv.quiet .fsv-close{pointer-events:none}
 
 /* analytics consent: one quiet line, only when GA_ID is set */
-.consent{position:fixed;left:var(--edge);right:var(--edge);bottom:var(--s3);z-index:8;display:flex;gap:var(--s3);align-items:baseline;flex-wrap:wrap;background:#fff;padding:var(--s1) 0;color:var(--mute)}
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:8;display:flex;gap:var(--s3);align-items:baseline;flex-wrap:wrap;background:#fff;padding:var(--s2) var(--edge) max(var(--s2),env(safe-area-inset-bottom));color:var(--mute)}
 .consent button{font:inherit;color:var(--ink);background:none;border:0;padding:var(--s1) 0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
 
 /* "new stories by email": one line, only when BUTTONDOWN is set */

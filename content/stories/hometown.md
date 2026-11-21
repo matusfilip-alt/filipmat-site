@@ -1,6 +1,7 @@
 ---
 title: "hometown"
 date: 2023-04-09
+published: 2026-11-21
 place: "Olomouc, Czech Republic"
 cover: /media/hometown/olomouc-1.jpg
 details: "Fujifilm X-E3 | TTartisan 50 mm f/1,2 manual focus"
@@ -12,7 +13,7 @@ It never gets old. Olomouc, a city dating back to the 11th century, has so many 
 
 ![Crowd of people walking across the cobbled square in Olomouc, a carousel in the background](/media/hometown/olomouc-17.jpg)
 
-Olomouc has seen a lot. It held off the Mongols in 1241 and the Prussian army in 1758. It did not survive everything, though. During the Thirty Years’ War, Swedish troops occupied it for eight years and left it in ruins. And yet it is still standing, changing, improving, and vibing.
+Olomouc has seen a lot. According to legend, it held off the Mongols in 1241, and it really did hold off the Prussian army in 1758. It did not survive everything, though. During the Thirty Years’ War, Swedish troops occupied it for eight years and left it in ruins. And yet it is still standing, changing, improving, and vibing.
 
 ![Weathered stone wall of an old Olomouc house with boarded-up windows and a dark doorway](/media/hometown/olomouc-7.jpg)
 

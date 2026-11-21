@@ -37,9 +37,9 @@ AUTHOR = "Filip Matuš"
 SITE_DESC = "Photo stories and snaps from travelling and everyday life by Filip Matuš."
 LANG = "en"
 # Google Analytics 4 measurement ID, e.g. "G-ABC123XYZ". Empty = no analytics at all.
-GA_ID = os.environ.get("GA_ID", "")
+GA_ID = os.environ.get("GA_ID") or "G-Y3X6999H9Q"
 # Buttondown username for the "new stories by email" form. Empty = no form.
-BUTTONDOWN = os.environ.get("BUTTONDOWN", "")
+BUTTONDOWN = os.environ.get("BUTTONDOWN") or "filipmatus"
 # --------------------------------------------------------------------------
 
 PREVIEW = bool(os.environ.get("PREVIEW"))
@@ -161,7 +161,7 @@ def process_image(ref):
     return info
 
 
-def render_body(body, prefix, title):
+def render_body(body, prefix, title, full=()):
     """Markdown -> composed story layout.
 
     The story is read as a sequence of text, headings and photos, then laid
@@ -185,7 +185,8 @@ def render_body(body, prefix, title):
             info = process_image(m.group(2))
             if info:
                 alt = m.group(1).strip()
-                items.append({"k": "img", "info": info, "alt": alt, "cap": m.group(3) or ""})
+                items.append({"k": "img", "info": info, "alt": alt, "cap": m.group(3) or "",
+                              "no": sum(1 for x in items if x["k"] == "img") + 1})
             continue
         if chunk.startswith("#"):
             items.append({"k": "head", "text": chunk.lstrip("#").strip()})
@@ -223,6 +224,11 @@ def render_body(body, prefix, title):
         return f'<div class="t">{html_}</div>'
 
     # Rules: see LAYOUT.md
+    full = {int(n) for n in (full or [])}
+
+    def forced(x):
+        return x is not None and x.get("k") == "img" and x.get("no") in full
+
     out, i = [], 0
     chapter_start = True   # next landscape photo opens a chapter -> bleed
     want_pair = True       # landscape runs alternate pair / wide
@@ -246,7 +252,7 @@ def render_body(body, prefix, title):
             photo = items[i] if i < len(items) and items[i]["k"] == "img" else None
             if len(run) == 1 and total < 70:
                 out.append(block("line", text_div(text_html)))
-            elif photo and total < 900:
+            elif photo and total < 900 and not forced(photo):
                 kind = "side-t" if portrait(photo) else "side"
                 kind += "-b" if mirror else "-a"
                 mirror = not mirror
@@ -258,8 +264,13 @@ def render_body(body, prefix, title):
             continue
 
         # photos
+        if forced(it):
+            out.append(block("bleed", fig(it, True), f' style="--ar:{ratio(it):.4f}"'))
+            chapter_start, want_pair = False, True
+            i += 1
+            continue
         if portrait(it):
-            if nxt and nxt["k"] == "img" and same_shape(it, nxt):
+            if nxt and nxt["k"] == "img" and same_shape(it, nxt) and not forced(nxt):
                 out.append(block("pair", fig(it) + fig(nxt), f' style="--ar:{ratio(it):.4f}"'))
                 i += 2
             else:
@@ -272,7 +283,7 @@ def render_body(body, prefix, title):
             chapter_start, want_pair = False, True
             i += 1
             continue
-        if want_pair and nxt and nxt["k"] == "img" and same_shape(it, nxt):
+        if want_pair and nxt and nxt["k"] == "img" and same_shape(it, nxt) and not forced(nxt):
             out.append(block("pair", fig(it) + fig(nxt), f' style="--ar:{ratio(it):.4f}"'))
             i += 2
         else:
@@ -355,7 +366,7 @@ def load_stories():
         slug = path.stem
         title = str(meta.get("title") or slug.replace("-", " "))
         print(f"story: {slug}")
-        content, photos = render_body(body, "../", title)
+        content, photos = render_body(body, "../", title, meta.get("full") or [])
         cover = process_image(str(meta["cover"])) if meta.get("cover") else None
         if not cover and photos:
             cover = photos[0]["info"]
@@ -365,11 +376,13 @@ def load_stories():
         desc = str(meta.get("summary") or "") or make_description(title, text, len(photos), details)
         stories.append({
             "slug": slug, "title": title, "date": to_date(meta.get("date")),
+            # when it went online; sorts the home page and gives the story its number
+            "published": to_date(meta.get("published") or meta.get("date")),
             "html": content, "photos": photos, "cover": cover,
             "details": details, "place": place, "text": text, "desc": desc,
             "url": abs_url(slug + "/"),
         })
-    stories.sort(key=lambda s: s["date"], reverse=True)
+    stories.sort(key=lambda s: (s["published"], s["date"]), reverse=True)
     return stories
 
 
@@ -409,7 +422,7 @@ def foot(prefix):
 
 
 def number(stories):
-    for i, s in enumerate(sorted(stories, key=lambda s: s["date"])):
+    for i, s in enumerate(sorted(stories, key=lambda s: (s["published"], s["date"]))):
         s["no"] = f"{i + 1:02d}"
 
 

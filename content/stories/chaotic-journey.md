@@ -3,6 +3,7 @@ title: "chaotic journey"
 date: 2024-01-31
 place: "Olomouc, Prague, Paris, Lille and Kortrijk"
 summary: "A winter journey by train from Olomouc through Prague and Paris to Lille and Kortrijk and back, in 22 frames on a Leica X2."
+full: [18]
 cover: /media/chaotic-journey/L9992727-VSCO-scaled.jpg
 details: "Leica X2"
 wordpress_url: https://filipmat.us/chaotic-journey/

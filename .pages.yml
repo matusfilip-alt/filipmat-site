@@ -23,9 +23,12 @@ content:
         type: string
         required: true
       - name: date
-        label: Date
+        label: Date of the photos / trip
         type: date
         required: true
+      - name: published
+        label: Published (today's date, puts the story first)
+        type: date
       - name: place
         label: Place (e.g. Olomouc, Czech Republic)
         type: string
@@ -38,6 +41,10 @@ content:
       - name: details
         label: Details at the end (e.g. camera, film)
         type: string
+      - name: full
+        label: Full-screen frames (numbers, e.g. 18)
+        type: number
+        list: true
       - name: draft
         label: Draft (hidden from site)
         type: boolean
