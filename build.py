@@ -41,6 +41,17 @@ LANG = "en"
 GA_ID = os.environ.get("GA_ID") or "G-Y3X6999H9Q"
 # Buttondown username for the "new stories by email" form. Empty = no form.
 BUTTONDOWN = os.environ.get("BUTTONDOWN") or "filipmatus"
+# Contact sheet view on story pages (preview first). Set CONTACT_SHEET=1 to switch on.
+CONTACT_SHEET = os.environ.get("CONTACT_SHEET", "") == "1"
+ABOUT = {
+    "photo": "/media/about/filip-matus.jpg",
+    "alt": "Filip Matuš in a cycling helmet, seen from behind, watching the sunset over forested hills",
+    "lines": [
+        "Filip Matuš, based in the Czech Republic.",
+        "Enjoying travelling, exploring and making simple photos. Mixing digital and analog.",
+        "Finding beauty in imperfection.",
+    ],
+}
 # --------------------------------------------------------------------------
 
 PREVIEW = bool(os.environ.get("PREVIEW"))
@@ -230,7 +241,9 @@ def render_body(body, prefix, title, full=()):
         return portrait(x) == portrait(y) and abs(ratio(x) - ratio(y)) / ratio(x) <= 0.03
 
     def block(kind, inner, style=""):
-        return f'<div class="b b-{kind}"{style}>{inner}</div>'
+        kind, *extra = kind.split()
+        cls = " ".join(["b", f"b-{kind}"] + extra)
+        return f'<div class="{cls}"{style}>{inner}</div>'
 
     def text_div(html_):
         return f'<div class="t">{html_}</div>'
@@ -286,9 +299,20 @@ def render_body(body, prefix, title, full=()):
                 out.append(block("pair", fig(it) + fig(nxt), f' style="--ar:{ratio(it):.4f}"'))
                 i += 2
             else:
-                out.append(block("tall-b" if mirror else "tall-a", fig(it)))
-                mirror = not mirror
-                i += 1
+                # a lone portrait followed by short text: put the text beside it
+                run, j = [], i + 1
+                while j < len(items) and items[j]["k"] == "text":
+                    run.append(items[j]); j += 1
+                total = sum(t["len"] for t in run)
+                if run and total < 900 and not (len(run) == 1 and total < 70):
+                    kind = "side-t-b" if mirror else "side-t-a"
+                    mirror = not mirror
+                    text_html = "".join(t["html"] for t in run)
+                    out.append(block(kind + " pf", text_div(text_html) + fig(it)))
+                    i = j
+                else:
+                    out.append(block("tall-c", fig(it)))
+                    i += 1
             continue
         if chapter_start:
             out.append(block("bleed", fig(it, True), f' style="--ar:{ratio(it):.4f}"'))
@@ -344,10 +368,11 @@ def page(title, main, *, desc, canonical, prefix="", image=None, og_type="websit
                    '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n')
     ld = jsonld(data) if (data and not noindex) else ""
     ga_attr = f' data-ga="{esc(GA_ID)}"' if GA_ID else ""
+    sheet_attr = ' data-sheet="1"' if CONTACT_SHEET else ""
     if GA_ID:
         scripts = scripts + f'\n<script src="{prefix}analytics.js?v={asset_v("analytics.js")}" defer></script>'
     return f"""<!DOCTYPE html>
-<html lang="{LANG}"{ga_attr}>
+<html lang="{LANG}"{ga_attr}{sheet_attr}>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -375,7 +400,7 @@ def page(title, main, *, desc, canonical, prefix="", image=None, og_type="websit
 
 
 def person():
-    return {"@type": "Person", "name": AUTHOR, "url": SITE_URL + "/"}
+    return {"@type": "Person", "name": AUTHOR, "url": SITE_URL + "/about/"}
 
 
 # ---------- build ----------------------------------------------------------
@@ -440,7 +465,7 @@ def subscribe():
 
 def foot(prefix):
     return (f'{subscribe()}<footer class="foot mono"><span>{SITE_TITLE} by {DOMAIN} · photo stories by {esc(AUTHOR)}</span>'
-            f'<a href="{prefix}feed.xml">rss</a></footer>')
+            f'<span class="links"><a href="{href(prefix + "about/")}">about</a><a href="{prefix}feed.xml">rss</a></span></footer>')
 
 
 def number(stories):
@@ -522,7 +547,7 @@ def build_home(stories):
             f'<span class="no">{s["no"]}</span><span class="title">{esc(s["title"])}</span>'
             f'<span class="meta mono">{meta}</span></span></a></li>')
     total = sum(len(s["photos"]) for s in stories)
-    main = (bar("", f'{len(stories)} stories · {total} frames') + "\n"
+    main = (bar("", f'<a href="{href("about/")}">about</a>') + "\n"
             '<h1 class="visually-hidden">' + esc(f"{SITE_TITLE}, photo stories by {AUTHOR}") + '</h1>\n'
             '<ul class="grid">\n' + "\n".join(tiles) + "\n</ul>\n" + foot(""))
     data = {
@@ -541,6 +566,34 @@ def build_home(stories):
                              canonical=SITE_URL + "/", image=og_image, data=data))
 
 
+def build_about(stories):
+    info = process_image(ABOUT["photo"])
+    w0, small = info["files"][0]
+    h0 = round(info["h"] * w0 / info["w"])
+    srcset = ", ".join(f"../{p} {w}w" for w, p in info["files"])
+    total = sum(len(s["photos"]) for s in stories)
+    lines = "".join(f"<p>{esc(l)}</p>" for l in ABOUT["lines"])
+    main = (
+        bar("../") + "\n"
+        '<article class="about">\n<div class="head"><h1>about</h1></div>\n'
+        '<div class="story"><div class="b b-side-b">'
+        f'<figure><img src="../{small}" srcset="{srcset}" sizes="(min-width: 760px) 65vw, 100vw" '
+        f'width="{w0}" height="{h0}" alt="{esc(ABOUT["alt"])}"></figure>'
+        f'<div class="t">{lines}<p class="mono stat">{len(stories)} stories · {total} frames</p></div>'
+        '</div></div>\n</article>\n' + foot("../")
+    )
+    url = abs_url("about/")
+    data = {
+        "@context": "https://schema.org", "@type": "ProfilePage", "url": url,
+        "mainEntity": {**person(), "image": abs_url(share_image(info)),
+                       "description": " ".join(ABOUT["lines"]),
+                       "homeLocation": {"@type": "Country", "name": "Czech Republic"}},
+    }
+    write("about/index.html", page(f"about - {SITE_TITLE} by {DOMAIN}", main,
+          desc=" ".join(ABOUT["lines"]), canonical=url, prefix="../",
+          image=abs_url(share_image(info)), data=data))
+
+
 def build_extras(stories):
     # 404
     write("404.html", page("not found", bar("/") + '\n<p>nothing here.</p>',
@@ -550,6 +603,7 @@ def build_extras(stories):
     urls = []
     newest = max((s["published"] for s in stories if s["published"] != date.min), default=None)
     urls.append(f'<url><loc>{SITE_URL}/</loc>' + (f"<lastmod>{newest.isoformat()}</lastmod>" if newest else "") + "</url>")
+    urls.append(f'<url><loc>{SITE_URL}/about/</loc></url>')
     for s in stories:
         imgs = "".join(
             f'<image:image><image:loc>{esc(abs_url(p["info"]["files"][-1][1]))}</image:loc></image:image>'
@@ -589,7 +643,7 @@ def build_extras(stories):
           + "".join(items) + "</channel></rss>\n")
 
     # llms.txt (short index) and llms-full.txt (all text + photo descriptions)
-    short = [f"# {SITE_TITLE}", "", f"> {SITE_DESC}", "", "## Stories", ""]
+    short = [f"# {SITE_TITLE}", "", f"> {SITE_DESC}", "", f"About the author: {SITE_URL}/about/ ({' '.join(ABOUT['lines'])})", "", "## Stories", ""]
     full = [f"# {SITE_TITLE}", "", f"> {SITE_DESC}", ""]
     for s in stories:
         short.append(f'- [{s["title"]}]({s["url"]}): {s["desc"]}')
@@ -619,6 +673,7 @@ def build():
     number(stories)
     build_story_pages(stories)
     build_home(stories)
+    build_about(stories)
     build_extras(stories)
     print(f"done: {len(stories)} stories -> {DIST}" + (" (preview links)" if PREVIEW else ""))
 

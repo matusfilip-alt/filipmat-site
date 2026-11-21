@@ -146,6 +146,39 @@
     });
   });
 
+  // contact sheet: every frame of the story on one dark sheet (only when switched on)
+  if (document.documentElement.getAttribute('data-sheet') === '1') {
+    var article = document.querySelector('article');
+    var sheet = document.createElement('section');
+    sheet.className = 'sheet';
+    sheet.setAttribute('aria-label', 'all frames');
+    figs.forEach(function (f, i) {
+      var img = f.querySelector('img');
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'frame ' + (i + 1));
+      var t = document.createElement('img');
+      t.src = img.getAttribute('src'); t.alt = img.alt; t.loading = 'lazy';
+      var n = document.createElement('span');
+      n.className = 'n'; n.textContent = (i < 9 ? '0' : '') + (i + 1);
+      b.appendChild(t); b.appendChild(n);
+      b.addEventListener('click', function () { openAt(i); });
+      sheet.appendChild(b);
+    });
+    article.appendChild(sheet);
+    var right = document.querySelector('.top .right');
+    if (right) {
+      var tg = document.createElement('button');
+      tg.type = 'button'; tg.className = 'sheet-toggle'; tg.textContent = 'frames';
+      tg.addEventListener('click', function () {
+        var on = document.documentElement.classList.toggle('sheet-open');
+        tg.textContent = on ? 'story' : 'frames';
+        if (on) window.scrollTo(0, 0);
+      });
+      right.appendChild(tg);
+    }
+  }
+
   var top = document.querySelector('.top .right') || document.querySelector('.top');
   if (top) {
     var btn = document.createElement('button');

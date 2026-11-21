@@ -151,3 +151,32 @@ html.fsv-open{overflow:hidden}
 .foot a{display:inline-block;padding:var(--s1) 0;margin:calc(var(--s1) * -1) 0}
 a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .sub input:focus-visible{outline:none;border-bottom-color:var(--ink)}
+
+/* lone portrait with nothing beside it: centred on the grid (lines 1 and 5) */
+@media (min-width:760px){.b-tall-c figure{grid-column:2 / 6}}
+
+/* portrait first, its text beside it; on phones the photo comes first */
+.b.pf figure{grid-row:1}
+.b.pf .t{grid-row:2;margin:var(--s3) 0 0}
+@media (min-width:760px){.b.pf figure,.b.pf .t{grid-row:1;margin:0}}
+
+/* footer links */
+.foot .links{display:flex;gap:var(--s3)}
+
+/* about page */
+.about .t p{font-size:17px}
+.about .stat{margin-top:var(--s4);color:var(--mute);font-family:var(--mono)}
+
+/* contact sheet: all frames of a story on one dark sheet, like a film proof */
+.sheet{display:none}
+html.sheet-open .sheet{display:grid}
+html.sheet-open article .story,html.sheet-open .next{display:none}
+.sheet{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2) var(--s1);background:#111;color:#9a9a9a;
+  margin:0 calc(var(--edge) * -1);padding:var(--s3) var(--edge) var(--s4)}
+@media (min-width:760px){.sheet{grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s3) var(--s2);margin:0;padding:var(--s4)}}
+.sheet button{all:unset;cursor:zoom-in;display:block}
+.sheet img{width:100%;aspect-ratio:3/2;object-fit:contain;background:#111;display:block}
+.sheet .n{display:block;margin-top:4px;font:400 11px/1 var(--mono);letter-spacing:.08em}
+.sheet button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.sheet-toggle{font:400 12px/1 var(--mono);color:var(--ink);background:none;border:0;padding:var(--s1) 0;cursor:pointer;margin-right:var(--s3)}
+.sheet-toggle:hover{text-decoration:underline;text-underline-offset:4px}

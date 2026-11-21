@@ -15,17 +15,17 @@ Finland 2022
 
 ![Two mailboxes in front of a young pine tree](/media/lazy-postman/DSCF1988-scaled.jpg)
 
-Finns seems like very active nation. They commute to work, they explore endless parks and forrests while running, walking or cycling.
+The Finns seem like a very active nation. They commute to work, they explore endless parks and forests while running, walking or cycling.
 
 In winter, they maintain thousands of ski trails so they can suffer while skiing. They even build tracks for fat biking.
 
-They play hockey on very high level. They are amazing at athletics and they even held a world sauna championship (yes, that is true).
+They play hockey at a very high level. They are amazing at athletics and they even held a world sauna championship (yes, that is true).
 
 However, their postmen are lazy creatures who only deliver to the mailboxes on the side of the road. They are too lazy to go the extra mile and deliver your love letters to your doorstep.
 
 ![Rack of mailboxes in front of a Finnish house](/media/lazy-postman/DSCF1995-2-scaled.jpg)
 
-Our trip to Lapland started in Helsinki where we took of to Rovaniemi – official Airport of Santa Claus. I found this city amazing so sorry for a little bit of history lesson.
+Our trip to Lapland started in Helsinki where we took off to Rovaniemi – official Airport of Santa Claus. I found this city amazing so sorry for a little bit of history lesson.
 
 ![Rovaniemi airport apron seen through a terminal window](/media/lazy-postman/DSCF1764-1-scaled.jpg)
 
@@ -45,7 +45,7 @@ And also a product manager that wanted to see bikes he designed in action.
 
 1930 – Rovaniemi was a quiet trading town of around 6,000 people until Russia invaded in 1939. The Finns fought off their invaders in the brutal Winter War of 1939-40, then allied with Germany for protection against further Russian incursions.
 
-German’s military base was settled and an airfield was built – now “Santa’s Official Airport” – and a barracks that would become the site of Santa Claus Village.
+A German military base was set up and an airfield was built – now “Santa’s Official Airport” – and a barracks that would become the site of Santa Claus Village.
 
 As the tide of war turned against the Axis, Russia ordered the Finns to expel the Germans, who burned Rovaniemi to the ground as they left in October 1944. The inhabitants had been evacuated, many to Sweden, an arduous process in which 279 died. Another 200 died on their return to Rovaniemi, killed by mines laid by the Germans to protect their retreat.
 
@@ -61,13 +61,13 @@ Then Santa Claus came to town…
 
 Rovaniemi did not have access to financial aid like other war-torn European cities because pressure from the USSR had forced Finland to reject the Marshall Plan. The Finns were also asked to pay ‘reparations’ to Russia.
 
-By the 1990s, the Santa myth had taken over. Even part of one of the city’s nuclear bunkers – built by the Ministry of the Interior for local citizens – was turned into an underground Santa-themed park. Tourists – especially those from China, Israel and the UK, who make up the majority of visitors – have taken to the Finnish version of Santa Claus. (source)
+By the 1990s, the Santa myth had taken over. Even part of one of the city’s nuclear bunkers – built by the Ministry of the Interior for local citizens – was turned into an underground Santa-themed park. Tourists – especially those from China, Israel and the UK, who make up the majority of visitors – have taken to the Finnish version of Santa Claus.
 
 ![Wide pedestrian street in Rovaniemi with a cyclist](/media/lazy-postman/DSCF1776-4-scaled.jpg)
 
 ![Man in a cap and glasses talking over coffee](/media/lazy-postman/DSCF1781-scaled.jpg)
 
-As amazing as the city and its surroundings are, there is a dark side. Drug abuse. If you want to delve deeper into the subject, just watch the film ‘Reindeerspotting’: Escape from Santaland”, a Finnish documentary about drug addicts in Rovaniemi. The name of the film is a direct reference to the 1996 British drama film Trainspotting, which dealt with the same subject from a Scottish point of view (source).
+As amazing as the city and its surroundings are, there is a dark side. Drug abuse. If you want to delve deeper into the subject, just watch the film ‘Reindeerspotting: Escape from Santaland’, a Finnish documentary about drug addicts in Rovaniemi. The name of the film is a direct reference to the 1996 British drama film Trainspotting, which dealt with the same subject from a Scottish point of view.
 
 And yes. Our first meal in Finland was in an Indian bistro. Thank you Ville (that guy on your left) for taking such a good care of us!
 
@@ -89,13 +89,13 @@ Nice two hours or so on e-fatbikes on local trails built by an amazing group of 
 
 What you see are stairs. Yes. In the middle of the forest. As there are not too many high hills, locals tend to run them up and down.
 
-Another artificial thing in the middle of the forest was a small hill on top of a natural hill. With a wooden construction on top
+Another artificial thing in the middle of the forest was a small hill on top of a natural hill, with a wooden construction on top.
 
 Jaromir, photo above, is standing on it, exhausted (not because it is high, but because his stamina sucks).
 
-With a wooden construction on top. I asked what it was for and the answer was as simple and direct as all the answers I’ve got from my fellow Finns – to meet the FIS regulations so that there can be a ski race. OK, noted.
+I asked what it was for and the answer was as simple and direct as all the answers I’ve got from my fellow Finns – to meet the FIS regulations so that there can be a ski race. OK, noted.
 
-After a bike ride we took off. We rode from the busy roads of Rovaniemi to the chill vibe of Levi. The roads were open, the speed limits were low and the nature around us was breathtaking. But in a Finnish way. Very simple. Minimalist. Nothing flashy. Somehow calming, but still breathtaking.After a few hours of driving, we ended up in a warm cabin for the night. Even though Levi is a huge tourist area with lots of hotels, amazing ski slopes, fatbike singletreks and shops with expensive stuff, we found it very quiet and peaceful. September is the off-season and that played into our cars. And yes, of course we went to the sauna, Finnish style. And yes, we went to a local pub with a strange interior for some overpriced beers and ended up talking about bikes long after midnight.
+After a bike ride we took off. We rode from the busy roads of Rovaniemi to the chill vibe of Levi. The roads were open, the speed limits were low and the nature around us was breathtaking. But in a Finnish way. Very simple. Minimalist. Nothing flashy. Somehow calming, but still breathtaking. After a few hours of driving, we ended up in a warm cabin for the night. Even though Levi is a huge tourist area with lots of hotels, amazing ski slopes, fatbike singletreks and shops with expensive stuff, we found it very quiet and peaceful. September is the off-season and that played into our hands. And yes, of course we went to the sauna, Finnish style. And yes, we went to a local pub with a strange interior for some overpriced beers and ended up talking about bikes long after midnight.
 
 ![Bucket hat and a drink can on the dashboard, an empty road ahead](/media/lazy-postman/DSCF1819-1-edited-1-scaled.jpg)
 
@@ -149,7 +149,7 @@ Even basic human needs are met here in style!
 
 ![Old outdoor toilet with a turf roof in the forest](/media/lazy-postman/DSCF1966-scaled.jpg)
 
-As the sun began to set, casting shadows everywhere, we had to call it a day on this beautiful ride that will forever be etched in my mind.We had to make our way back to Levi, bummed that this trip was coming to an end. But Ville had another surprise for us – to visit his family cottage on the way.
+As the sun began to set, casting shadows everywhere, we had to call it a day on this beautiful ride that will forever be etched in my mind. We had to make our way back to Levi, bummed that this trip was coming to an end. But Ville had another surprise for us – to visit his family cottage on the way.
 
 ![Wooden cottage on a hill among birches](/media/lazy-postman/DSCF1970-scaled.jpg)
 
@@ -159,7 +159,7 @@ As the sun began to set, casting shadows everywhere, we had to call it a day on 
 
 ![Wooden posts in a clear, cold forest stream](/media/lazy-postman/DSCF1976-4-scaled.jpg)
 
-We only knew each other for a few days, but he let us check out where his family spend their holidays and boy were we excited. When we saw a “SPA” sign, we were expecting a traditional sauna.
+We only knew each other for a few days, but he let us check out where his family spends their holidays and boy were we excited. When we saw a “SPA” sign, we were expecting a traditional sauna.
 
 To our surprise, it was just a local stream that was freezing cold. With no time to jump in, we promised to come back and I’ve added this charming place to my bucket list.
 

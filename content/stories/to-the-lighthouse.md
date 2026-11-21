@@ -21,7 +21,7 @@ Well, that was a mistake. All day long we were riding a few minutes behind the r
 
 ## FIRST STOP – PAVLOV, SOUTH MORAVIA (CZ)
 
-Views weren’t amazing because of the grey clouds, but we could smell the wine in the air.. amazing place.
+Views weren’t amazing because of the grey clouds, but we could smell the wine in the air. Amazing place.
 
 ![Harley-Davidson Sportster with a cargo net above a lake view](/media/to-the-lighthouse/DSCF46311-scaled.jpg)
 
@@ -29,9 +29,9 @@ Views weren’t amazing because of the grey clouds, but we could smell the wine 
 
 ![Vineyards and the Nové Mlýny reservoirs seen from Pálava](/media/to-the-lighthouse/DSCF46321-edited-scaled.jpg)
 
-## NOVE MLÝNY (CZ)
+## NOVÉ MLÝNY (CZ)
 
-The whole village is hidden/drowned in Nove Mlýny … amazing views and thoughts about what’s underwater.
+The whole village is hidden/drowned in Nové Mlýny … amazing views and thoughts about what’s underwater.
 
 ![Treetops of a drowned village standing in the still water of Nové Mlýny](/media/to-the-lighthouse/DSCF46031-edited-scaled.jpg)
 
@@ -67,7 +67,7 @@ We found this place by chance. The road to this place was really bad. Slick as h
 
 ## IRON CURTAIN
 
-On the other side was the Dunaj River with its monstrous appearance. There was a special atmosphere at the top, really inspiring to see how close Slovakia and Austria are – but in communist times there was no way to travel between those cities. Pretty fucked up.
+On the other side was the Danube with its monstrous appearance. There was a special atmosphere at the top, really inspiring to see how close Slovakia and Austria are – but in communist times there was no way to travel between those cities. Pretty fucked up.
 
 ![Handlebar and mirror with the Danube plain below Braunsberg](/media/to-the-lighthouse/DSCF46961-edited-scaled.jpg)
 
@@ -105,7 +105,7 @@ The booking app came in handy. Lake Neusiedl was either fully booked or crazy ov
 
 ![Rope ladder in a small houseboat cabin](/media/to-the-lighthouse/DSCF48141-scaled.jpg)
 
-Gabčíkovo is a waterworks on the Danube in Bratislava and south-east of it in the Trnava region, in southern Slovakia near the border with Hungary. About 1 km south of the village of Gabčíkovo, after which the plant is named, a dam with a hydroelectric power station is being built. The resulting reservoir covers an area of 46 km², includes a group of 12 islands (Benko’s Islands) and extends into the Bratislava region. It is situated at an altitude of 131 metres.
+Gabčíkovo is a waterworks on the Danube in Bratislava and south-east of it in the Trnava region, in southern Slovakia near the border with Hungary. About 1 km south of the village of Gabčíkovo, after which the plant is named, a dam with a hydroelectric power station was built. The resulting reservoir covers an area of 46 km², includes a group of 12 islands (Benko’s Islands) and extends into the Bratislava region. It is situated at an altitude of 131 metres.
 
 ![Zákaz vstupu (no entry) sign on a railing at the Gabčíkovo waterworks at night](/media/to-the-lighthouse/DSCF48501-scaled.jpg)
 
