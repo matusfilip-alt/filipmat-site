@@ -31,3 +31,8 @@ ExpiresByType text/css "access plus 1 week"
 ExpiresByType application/javascript "access plus 1 week"
 ExpiresByType text/html "access plus 10 minutes"
 </IfModule>
+
+# keep deployment instructions private
+<Files ".deploy">
+Require all denied
+</Files>

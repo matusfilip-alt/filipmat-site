@@ -429,6 +429,7 @@ def number(stories):
 def build_story_pages(stories):
     for i, s in enumerate(stories):
         iso = s["date"].isoformat() if s["date"] != date.min else ""
+        pub_iso = s["published"].isoformat() if s["published"] != date.min else iso
         label = []
         if iso:
             label.append(f'<time datetime="{iso}">{fmt_date(s["date"])}</time>')
@@ -460,9 +461,11 @@ def build_story_pages(stories):
             "inLanguage": LANG, "author": person(), "publisher": person(),
             "isPartOf": {"@type": "Blog", "name": SITE_TITLE, "url": SITE_URL + "/"},
         }
+        if pub_iso:
+            data["datePublished"] = pub_iso
+            data["dateModified"] = pub_iso
         if iso:
-            data["datePublished"] = iso
-            data["dateModified"] = iso
+            data["dateCreated"] = iso
         if images:
             data["image"] = images
         if s["details"]:
@@ -523,14 +526,14 @@ def build_extras(stories):
 
     # sitemap with photos
     urls = []
-    newest = max((s["date"] for s in stories if s["date"] != date.min), default=None)
+    newest = max((s["published"] for s in stories if s["published"] != date.min), default=None)
     urls.append(f'<url><loc>{SITE_URL}/</loc>' + (f"<lastmod>{newest.isoformat()}</lastmod>" if newest else "") + "</url>")
     for s in stories:
         imgs = "".join(
             f'<image:image><image:loc>{esc(abs_url(p["info"]["files"][-1][1]))}</image:loc></image:image>'
             for p in s["photos"]
         )
-        lm = f'<lastmod>{s["date"].isoformat()}</lastmod>' if s["date"] != date.min else ""
+        lm = f'<lastmod>{s["published"].isoformat()}</lastmod>' if s["published"] != date.min else ""
         urls.append(f'<url><loc>{esc(s["url"])}</loc>{lm}{imgs}</url>')
     write("sitemap.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -548,8 +551,8 @@ def build_extras(stories):
     items = []
     for s in stories:
         pub = ""
-        if s["date"] != date.min:
-            dt = datetime(s["date"].year, s["date"].month, s["date"].day, 12, tzinfo=timezone.utc)
+        if s["published"] != date.min:
+            dt = datetime(s["published"].year, s["published"].month, s["published"].day, 12, tzinfo=timezone.utc)
             pub = f"<pubDate>{format_datetime(dt)}</pubDate>"
         items.append(
             f'<item><title>{esc(s["title"])}</title><link>{esc(s["url"])}</link>'
