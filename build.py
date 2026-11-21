@@ -10,6 +10,7 @@ text) is generated from the story content, nothing to maintain by hand.
     python build.py              # production build
     PREVIEW=1 python build.py    # relative links, for viewing without a server
 """
+import hashlib
 import html
 import json
 import os
@@ -302,6 +303,12 @@ def jsonld(data):
     )
 
 
+def asset_v(name):
+    """Short content hash for an asset in static/, so browsers fetch a new version after a change."""
+    f = STATIC / name
+    return hashlib.sha1(f.read_bytes()).hexdigest()[:8] if f.exists() else "0"
+
+
 def page(title, main, *, desc, canonical, prefix="", image=None, og_type="website",
          data=None, scripts="", noindex=False):
     t = esc(title)
@@ -326,7 +333,7 @@ def page(title, main, *, desc, canonical, prefix="", image=None, og_type="websit
     ld = jsonld(data) if (data and not noindex) else ""
     ga_attr = f' data-ga="{esc(GA_ID)}"' if GA_ID else ""
     if GA_ID:
-        scripts = scripts + f'\n<script src="{prefix}analytics.js" defer></script>'
+        scripts = scripts + f'\n<script src="{prefix}analytics.js?v={asset_v("analytics.js")}" defer></script>'
     return f"""<!DOCTYPE html>
 <html lang="{LANG}"{ga_attr}>
 <head>
@@ -338,8 +345,11 @@ def page(title, main, *, desc, canonical, prefix="", image=None, og_type="websit
 {robots}
 {og}<link rel="alternate" type="application/rss+xml" title="{esc(SITE_TITLE)}" href="{prefix}feed.xml">
 <link rel="icon" type="image/svg+xml" href="{prefix}favicon.svg">
+<link rel="icon" type="image/png" sizes="48x48" href="{prefix}favicon-48.png">
+<link rel="apple-touch-icon" href="{prefix}apple-touch-icon.png">
+<meta name="theme-color" content="#ffffff">
 <link rel="preload" href="{prefix}fonts/special-elite-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="{prefix}style.css">
+<link rel="stylesheet" href="{prefix}style.css?v={asset_v("style.css")}">
 {ld}
 </head>
 <body>
@@ -476,7 +486,7 @@ def build_story_pages(stories):
         write(f'{s["slug"]}/index.html', page(
             f'{s["title"]} - {SITE_TITLE} by {DOMAIN}', main, desc=s["desc"], canonical=s["url"],
             prefix="../", image=og_image, og_type="article", data=data,
-            scripts='<script src="../viewer.js" defer></script>' if s["photos"] else ""))
+            scripts=f'<script src="../viewer.js?v={asset_v("viewer.js")}" defer></script>' if s["photos"] else ""))
 
 
 def build_home(stories):
@@ -556,11 +566,13 @@ def build_extras(stories):
             pub = f"<pubDate>{format_datetime(dt)}</pubDate>"
         items.append(
             f'<item><title>{esc(s["title"])}</title><link>{esc(s["url"])}</link>'
-            f'<guid>{esc(s["url"])}</guid>{pub}<description>{esc(s["desc"])}</description></item>'
+            f'<guid>{esc(s["url"])}</guid>{pub}<description>{esc(s["desc"])}</description>'
+            + (f'<enclosure url="{esc(abs_url(s["cover"]["files"][-1][1]))}" type="image/webp" length="0"/>' if s["cover"] else "")
+            + '</item>'
         )
     write("feed.xml",
           '<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel>'
-          f"<title>{esc(SITE_TITLE)}</title><link>{SITE_URL}/</link>"
+          f"<title>{esc(SITE_TITLE)} by {DOMAIN}</title><link>{SITE_URL}/</link>"
           f"<description>{esc(SITE_DESC)}</description><language>{LANG}</language>"
           + "".join(items) + "</channel></rss>\n")
 
