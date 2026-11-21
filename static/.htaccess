@@ -51,3 +51,8 @@ Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 </IfModule>
 
 AddType font/woff2 .woff2
+
+# server-only settings for the contact form
+<Files "contact-config.php">
+Require all denied
+</Files>

@@ -51,6 +51,8 @@ ABOUT = {
         "Enjoying travelling, exploring and making simple photos. Mixing digital and analog.",
         "Finding beauty in imperfection.",
     ],
+    "linkedin": "https://www.linkedin.com/in/filip-matus/",
+    "credit": ("Rob Trnka", "https://www.robtrnka.com"),
 }
 # --------------------------------------------------------------------------
 
@@ -578,20 +580,36 @@ def build_about(stories):
         '<article class="about">\n<div class="head"><h1>about</h1></div>\n'
         '<div class="story"><div class="b b-side-b">'
         f'<figure><img src="../{small}" srcset="{srcset}" sizes="(min-width: 760px) 65vw, 100vw" '
-        f'width="{w0}" height="{h0}" alt="{esc(ABOUT["alt"])}"></figure>'
-        f'<div class="t">{lines}<p class="mono stat">{len(stories)} stories · {total} frames</p></div>'
-        '</div></div>\n</article>\n' + foot("../")
+        f'width="{w0}" height="{h0}" alt="{esc(ABOUT["alt"])}">'
+        f'<figcaption class="mono"><span>photo: <a href="{ABOUT["credit"][1]}" target="_blank" rel="noopener">{esc(ABOUT["credit"][0])}</a></span></figcaption></figure>'
+        f'<div class="t">{lines}<p class="mono stat">{len(stories)} stories · {total} frames</p>'
+        f'<p class="mono links"><a href="{ABOUT["linkedin"]}" rel="me noopener">linkedin</a></p></div>'
+        '</div></div>\n'
+        '<section class="contact" aria-labelledby="contact-h">'
+        '<h2 id="contact-h" class="mono">write to me</h2>'
+        '<form class="cform" action="../contact.php" method="post" novalidate>'
+        '<label class="mono" for="c-name">name</label><input id="c-name" name="name" autocomplete="name" required maxlength="100">'
+        '<label class="mono" for="c-email">email</label><input id="c-email" name="email" type="email" autocomplete="email" required maxlength="200">'
+        '<label class="mono" for="c-msg">message</label><textarea id="c-msg" name="message" rows="6" required maxlength="5000"></textarea>'
+        '<div class="hp" aria-hidden="true"><label for="c-web">leave empty</label><input id="c-web" name="website" tabindex="-1" autocomplete="off"></div>'
+        '<input type="hidden" name="t" value="">'
+        '<div class="row"><button type="submit" class="mono">send</button><span class="status mono" role="status" aria-live="polite"></span></div>'
+        '<p class="note mono">your message goes straight to my inbox. nothing is stored on this site.</p>'
+        '</form></section>\n'
+        '</article>\n' + foot("../")
     )
     url = abs_url("about/")
     data = {
         "@context": "https://schema.org", "@type": "ProfilePage", "url": url,
         "mainEntity": {**person(), "image": abs_url(share_image(info)),
                        "description": " ".join(ABOUT["lines"]),
-                       "homeLocation": {"@type": "Country", "name": "Czech Republic"}},
+                       "homeLocation": {"@type": "Country", "name": "Czech Republic"},
+                       "sameAs": [ABOUT["linkedin"]]},
     }
     write("about/index.html", page(f"about - {SITE_TITLE} by {DOMAIN}", main,
           desc=" ".join(ABOUT["lines"]), canonical=url, prefix="../",
-          image=abs_url(share_image(info)), data=data))
+          image=abs_url(share_image(info)), data=data,
+          scripts=f'<script src="../contact.js?v={asset_v("contact.js")}" defer></script>'))
 
 
 def build_extras(stories):

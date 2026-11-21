@@ -1,3 +1,4 @@
 dist/
 __pycache__/
 .DS_Store
+static/contact-config.php

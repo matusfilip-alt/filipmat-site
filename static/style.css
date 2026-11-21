@@ -180,3 +180,24 @@ html.sheet-open article .story,html.sheet-open .next{display:none}
 .sheet button:focus-visible{outline:2px solid #fff;outline-offset:3px}
 .sheet-toggle{font:400 12px/1 var(--mono);color:var(--ink);background:none;border:0;padding:var(--s1) 0;cursor:pointer;margin-right:var(--s3)}
 .sheet-toggle:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* home: every tile the same square (cropped to the centre of the photo) */
+.tile img{aspect-ratio:1/1;object-fit:cover;object-position:center}
+
+/* about: linkedin + contact form */
+.about .links a{text-decoration:underline;text-underline-offset:4px}
+.contact{margin-top:var(--s6);max-width:34em}
+
+.contact h2{margin:0 0 var(--s3);font-size:13px;letter-spacing:.08em;color:var(--ink)}
+.cform{display:grid;gap:var(--s1)}
+.cform label{color:var(--mute);margin-top:var(--s2)}
+.cform input,.cform textarea{font:400 16px/1.5 var(--story);color:#333;background:none;border:0;border-bottom:1px solid #ccc;border-radius:0;padding:var(--s1) 0;width:100%;outline:none;resize:vertical}
+.cform input:focus,.cform textarea:focus{border-bottom-color:var(--ink)}
+.cform .row{display:flex;gap:var(--s3);align-items:baseline;margin-top:var(--s3)}
+.cform button{color:var(--ink);background:none;border:0;padding:var(--s1) 0;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.cform button[disabled]{color:var(--mute);cursor:default}
+.cform .status{color:var(--mute)}
+.cform .note{color:var(--mute);margin-top:var(--s3)}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.about figcaption a{display:inline;text-decoration:underline;text-underline-offset:3px}
+.about figcaption span{white-space:nowrap}

@@ -64,7 +64,7 @@ jobs:
           if git ls-remote --exit-code --heads "$BLUEBOARD_REMOTE" production >/dev/null 2>&1; then
             echo "fetching what is already published..."
             git clone --depth 1 --branch production "$BLUEBOARD_REMOTE" publish
-            find publish -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+            find publish -mindepth 1 -maxdepth 1 ! -name .git ! -name contact-config.php -exec rm -rf {} +
           else
             echo "first publish"
             git init -q -b production publish
