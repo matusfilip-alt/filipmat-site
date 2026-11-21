@@ -18,10 +18,14 @@ concurrency:
 env:
   BLUEBOARD_REMOTE: git@neuron.blueboard.cz:filipmat.us
   BLUEBOARD_HOST: neuron.blueboard.cz
+  # Never wait for a prompt: fail fast with a clear message instead.
+  GIT_SSH_COMMAND: ssh -i ~/.ssh/id_ed25519 -o BatchMode=yes -o IdentitiesOnly=yes -o ConnectTimeout=20 -o ServerAliveInterval=15 -o StrictHostKeyChecking=accept-new
+  GIT_TERMINAL_PROMPT: "0"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -40,20 +44,29 @@ jobs:
       # The private deploy key lives in the repository secret BLUEBOARD_SSH_KEY.
       # Its public half is registered at Blueboard > filipmat.us > Git.
       - name: Set up SSH
+        env:
+          KEY: ${{ secrets.BLUEBOARD_SSH_KEY }}
         run: |
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
-          printf '%s\n' "${{ secrets.BLUEBOARD_SSH_KEY }}" > ~/.ssh/id_ed25519
+          printf '%s\n' "$KEY" | tr -d '\r' > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "$BLUEBOARD_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh-keygen -y -f ~/.ssh/id_ed25519 > /dev/null && echo "deploy key: valid" || { echo "deploy key: NOT valid, paste it again"; exit 1; }
+          ssh-keyscan -T 20 "$BLUEBOARD_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          echo "checking access to Blueboard Git..."
+          timeout 60 git ls-remote "$BLUEBOARD_REMOTE" && echo "access: OK"
 
       # Start from what is already published, so only changed files are sent.
       - name: Publish to Blueboard
+        timeout-minutes: 20
         run: |
           git config --global user.name "filipmat-site deploy"
           git config --global user.email "deploy@filipmat.us"
-          if git clone --depth 1 --branch production "$BLUEBOARD_REMOTE" publish 2>/dev/null; then
+          if git ls-remote --exit-code --heads "$BLUEBOARD_REMOTE" production >/dev/null 2>&1; then
+            echo "fetching what is already published..."
+            git clone --depth 1 --branch production "$BLUEBOARD_REMOTE" publish
             find publish -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
           else
+            echo "first publish"
             git init -q -b production publish
             git -C publish remote add origin "$BLUEBOARD_REMOTE"
           fi
@@ -65,4 +78,5 @@ jobs:
             exit 0
           fi
           git commit -q -m "Publish ${GITHUB_SHA::7}"
-          git push origin HEAD:production
+          echo "pushing $(git count-objects -vH | grep size-pack)..."
+          git push --progress origin HEAD:production
