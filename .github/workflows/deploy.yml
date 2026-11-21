@@ -1,16 +1,12 @@
-name: Build and upload to Blueboard
+name: Build and publish to Blueboard
 
 # Runs on every change to the repository (for example when you save a story
-# in the phone editor). It builds the site and uploads only what changed.
+# in the phone editor). It builds the site and pushes the finished files to
+# Blueboard's Git deployment, which publishes them to filipmat.us.
 on:
   push:
     branches: [main]
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: "Dry run: show what would be uploaded, upload nothing"
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -18,6 +14,10 @@ permissions:
 concurrency:
   group: deploy
   cancel-in-progress: false
+
+env:
+  BLUEBOARD_REMOTE: git@neuron.blueboard.cz:filipmat.us
+  BLUEBOARD_HOST: neuron.blueboard.cz
 
 jobs:
   deploy:
@@ -31,21 +31,38 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - run: python build.py
+      - name: Build the site
+        run: python build.py
         env:
           GA_ID: ${{ vars.GA_ID }}
           BUTTONDOWN: ${{ vars.BUTTONDOWN }}
 
-      # Credentials come from the repository secrets FTP_SERVER, FTP_USERNAME,
-      # FTP_PASSWORD (Settings > Secrets and variables > Actions).
-      # Optional variable FTP_DIR: target folder on the hosting, default "./".
-      - name: Upload to Blueboard (FTP over TLS)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./dist/
-          server-dir: ${{ vars.FTP_DIR || './' }}
-          dry-run: ${{ inputs.dry_run == true }}
+      # The private deploy key lives in the repository secret BLUEBOARD_SSH_KEY.
+      # Its public half is registered at Blueboard > filipmat.us > Git.
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "${{ secrets.BLUEBOARD_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$BLUEBOARD_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      # Start from what is already published, so only changed files are sent.
+      - name: Publish to Blueboard
+        run: |
+          git config --global user.name "filipmat-site deploy"
+          git config --global user.email "deploy@filipmat.us"
+          if git clone --depth 1 --branch production "$BLUEBOARD_REMOTE" publish 2>/dev/null; then
+            find publish -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          else
+            git init -q -b production publish
+            git -C publish remote add origin "$BLUEBOARD_REMOTE"
+          fi
+          cp -a dist/. publish/
+          cd publish
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed, nothing to publish."
+            exit 0
+          fi
+          git commit -q -m "Publish ${GITHUB_SHA::7}"
+          git push origin HEAD:production
