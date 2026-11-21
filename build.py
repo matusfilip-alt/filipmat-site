@@ -157,9 +157,20 @@ def process_image(ref):
         out_dir / thumb_name, "WEBP", quality=WEBP_Q, method=4
     )
 
-    info = {"w": w, "h": h, "files": files, "thumb": f"img/{thumb_name}"}
+    info = {"w": w, "h": h, "files": files, "thumb": f"img/{thumb_name}",
+            "src": str(src), "stem": stem}
     _img_cache[rel] = info
     return info
+
+
+def share_image(info):
+    """1200x630 JPEG for link previews (only made for cover photos)."""
+    name = f"img/{info['stem']}-share.jpg"
+    out = DIST / name
+    if not out.exists():
+        im = ImageOps.exif_transpose(Image.open(info["src"])).convert("RGB")
+        ImageOps.fit(im, (1200, 630), Image.LANCZOS).save(out, "JPEG", quality=85, optimize=True)
+    return name
 
 
 def render_body(body, prefix, title, full=()):
@@ -329,7 +340,8 @@ def page(title, main, *, desc, canonical, prefix="", image=None, og_type="websit
             f'<meta name="twitter:card" content="{"summary_large_image" if image else "summary"}">\n'
         )
         if image:
-            og += f'<meta property="og:image" content="{esc(image)}">\n'
+            og += (f'<meta property="og:image" content="{esc(image)}">\n'
+                   '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n')
     ld = jsonld(data) if (data and not noindex) else ""
     ga_attr = f' data-ga="{esc(GA_ID)}"' if GA_ID else ""
     if GA_ID:
@@ -463,7 +475,7 @@ def build_story_pages(stories):
             f'{s["html"]}\n</article>\n{next_html}\n{foot("../")}'
         )
         images = [abs_url(p["info"]["files"][-1][1]) for p in s["photos"]]
-        og_image = abs_url(s["cover"]["files"][-1][1]) if s["cover"] else None
+        og_image = abs_url(share_image(s["cover"])) if s["cover"] else None
         data = {
             "@context": "https://schema.org", "@type": "BlogPosting",
             "headline": s["title"], "description": s["desc"], "url": s["url"],
@@ -524,7 +536,7 @@ def build_home(stories):
                  for i, s in enumerate(stories)]}},
         ],
     }
-    og_image = abs_url(stories[0]["cover"]["files"][-1][1]) if stories and stories[0]["cover"] else None
+    og_image = abs_url(share_image(stories[0]["cover"])) if stories and stories[0]["cover"] else None
     write("index.html", page(f"{SITE_TITLE} by {DOMAIN} - photo stories by {AUTHOR}", main, desc=SITE_DESC,
                              canonical=SITE_URL + "/", image=og_image, data=data))
 
