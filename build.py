@@ -547,7 +547,8 @@ def build_home(stories):
         tiles.append(
             f'<li><a class="tile" href="{href(s["slug"] + "/")}">{img}<span class="idx">'
             f'<span class="no">{s["no"]}</span><span class="title">{esc(s["title"])}</span>'
-            f'<span class="meta mono">{meta}</span></span></a></li>')
+            + (f'<span class="place mono">{esc(s["place"])}</span>' if s["place"] else '')
+            + f'<span class="meta mono">{meta}</span></span></a></li>')
     total = sum(len(s["photos"]) for s in stories)
     main = (bar("", f'<a href="{href("about/")}">about</a>') + "\n"
             '<h1 class="visually-hidden">' + esc(f"{SITE_TITLE}, photo stories by {AUTHOR}") + '</h1>\n'
@@ -583,7 +584,7 @@ def build_about(stories):
         f'width="{w0}" height="{h0}" alt="{esc(ABOUT["alt"])}">'
         f'<figcaption class="mono"><span>photo: <a href="{ABOUT["credit"][1]}" target="_blank" rel="noopener">{esc(ABOUT["credit"][0])}</a></span></figcaption></figure>'
         f'<div class="t">{lines}<p class="mono stat">{len(stories)} stories · {total} frames</p>'
-        f'<p class="mono links"><a href="{ABOUT["linkedin"]}" rel="me noopener">linkedin</a></p></div>'
+        '</div>'
         '</div></div>\n'
         '<section class="contact" aria-labelledby="contact-h">'
         '<h2 id="contact-h" class="mono">write to me</h2>'
@@ -603,8 +604,7 @@ def build_about(stories):
         "@context": "https://schema.org", "@type": "ProfilePage", "url": url,
         "mainEntity": {**person(), "image": abs_url(share_image(info)),
                        "description": " ".join(ABOUT["lines"]),
-                       "homeLocation": {"@type": "Country", "name": "Czech Republic"},
-                       "sameAs": [ABOUT["linkedin"]]},
+                       "homeLocation": {"@type": "Country", "name": "Czech Republic"}},
     }
     write("about/index.html", page(f"about - {SITE_TITLE} by {DOMAIN}", main,
           desc=" ".join(ABOUT["lines"]), canonical=url, prefix="../",

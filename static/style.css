@@ -201,3 +201,6 @@ html.sheet-open article .story,html.sheet-open .next{display:none}
 .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
 .about figcaption a{display:inline;text-decoration:underline;text-underline-offset:3px}
 .about figcaption span{white-space:nowrap}
+
+/* home: location under the title */
+.tile .place{grid-column:2;margin-top:2px;color:#555}
