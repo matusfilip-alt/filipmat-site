@@ -3,7 +3,7 @@ title: "kødbyen on film"
 date: 2024-12-06
 published: 2026-11-22
 place: "Copenhagen, Denmark"
-cover: /media/kodbyen-on-film/kodbyen-04.jpg
+cover: /media/kodbyen-on-film/kodbyen-01.jpg
 details: "Leica Mini | Leica Elmar 35 mm f/3.5 | Ilford 400"
 summary: "A quick walk through Kødbyen, Copenhagen's Meatpacking District, between a work meeting and a flight home, shot on a 1991 Leica Mini and black and white Ilford 400 film."
 ---
