@@ -4,12 +4,14 @@ date: 2024-12-06
 published: 2026-11-22
 place: "Copenhagen, Denmark"
 cover: /media/kodbyen-on-film/kodbyen-04.jpg
-details: "Leica Mini | Ilford 400"
+details: "Leica Mini | Leica Elmar 35 mm f/3.5 | Ilford 400"
 summary: "A quick walk through Kødbyen, Copenhagen's Meatpacking District, between a work meeting and a flight home, shot on a 1991 Leica Mini and black and white Ilford 400 film."
 ---
 ![Empty cobbled street between old brick halls of the Brown Meat City, a cable strung across, a high-rise in the distance](/media/kodbyen-on-film/kodbyen-04.jpg)
 
 Copenhagen is a very colorful city. That is why I took my old Leica Mini, a compact film camera from 1991, and loaded it with a roll of black and white Ilford 400. There is never much time to see a city on a work trip, but I do not see the point in waiting three hours at the airport before a flight. So yes, the trip home is sometimes a little stressful. My heart rate goes up, I am usually the last one boarding, and I sprint through the terminal. But it is worth it. At least for me.
+
+![Hand holding a black Leica Mini compact film camera with a Leica Elmar 35 mm lens, a blurred Copenhagen square behind it](/media/kodbyen-on-film/leica-mini.jpg)
 
 A while ago, a friend recommended Kødbyen, the Meatpacking District in Vesterbro, just a short walk from Central Station. It was not built to be cool. It was built to keep people healthy. In the 19th century, butchers worked all over Copenhagen, in backyards and cellars. After the cholera epidemic of 1853, the city decided to move all of that off the streets and into one place it could control. The Brown Meat City opened in 1879 with its red brick halls and cattle market. In the 1930s came the White Meat City: functionalist buildings covered in white ceramic tiles, because white tiles were easy to wash and showed every bit of dirt.
 
