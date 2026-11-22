@@ -1,6 +1,6 @@
 ---
 title: "kødbyen on film"
-date: 2025-01-20
+date: 2024-12-06
 published: 2026-11-22
 place: "Copenhagen, Denmark"
 cover: /media/kodbyen-on-film/kodbyen-04.jpg

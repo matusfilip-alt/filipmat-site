@@ -1,6 +1,7 @@
 ---
 title: "through dad’s lens"
 date: 2024-10-08
+place: "Poděbrady, Olomouc, Czech Republic"
 summary: "A day at the lake with my dad, my daughter and our new puppy, photographed on my father's 1981 Minolta Himatic S2 and Ilford Pan 400 film."
 cover: /media/through-dads-lens/img953.jpeg
 details: "Minolta Himatic S2, Ilford Pan 400 · shot 25.2.2024"
